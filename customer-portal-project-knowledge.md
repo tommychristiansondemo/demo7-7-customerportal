@@ -166,6 +166,13 @@ Total pipeline: ~2-3 minutes with Claude Sonnet 4.5.
 - Live scoring visualization showing all 5 models ranked with formula breakdown
 - "Save Weights" button writes to AppConfig via PUT /config/weights
 
+### Chat Assistant (floating panel on all pages)
+- 💬 button in bottom-right corner opens a chat panel
+- Powered by Claude Sonnet 4.6 via Bedrock InvokeModel
+- Has full project knowledge file as system context
+- Students can ask about architecture, AWS services, design decisions, costs, etc.
+- Maintains conversation history within the session (last 10 turns)
+
 ---
 
 ## Demo Mode Fallback
