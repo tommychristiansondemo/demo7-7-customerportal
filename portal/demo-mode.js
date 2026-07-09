@@ -176,14 +176,14 @@
       originalInitWebSocket(submissionId, url);
     }
 
-    // Set a timeout — if no progress updates arrive within 5 seconds, start demo
+    // Set a timeout — if no progress updates arrive within 30 seconds, start demo
     var demoTimeout = setTimeout(function () {
       var statuses = window.VSI_PROGRESS ? window.VSI_PROGRESS.getStageMetadata() : {};
       if (Object.keys(statuses).length === 0) {
         console.log('[VSI Demo] No pipeline activity detected, activating demo mode');
         startDemoAfterDelay();
       }
-    }, 5000);
+    }, 30000);
 
     // Cancel demo timeout if real updates arrive
     var checkInterval = setInterval(function () {
