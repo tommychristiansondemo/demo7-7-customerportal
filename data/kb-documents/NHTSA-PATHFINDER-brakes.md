@@ -1,0 +1,59 @@
+# Nissan PATHFINDER — Brakes Issues
+
+## Source: NHTSA Vehicle Safety Complaints (Public Domain)
+
+## Affected Models
+- Nissan PATHFINDER (2013, 2015, 2017, 2022)
+
+## Component Systems
+- ELECTRICAL SYSTEM,SERVICE BRAKES,ENGINE
+- POWER TRAIN,ELECTRICAL SYSTEM,SERVICE BRAKES
+- ELECTRICAL SYSTEM,SERVICE BRAKES,FUEL/PROPULSION SYSTEM
+- SERVICE BRAKES,ENGINE
+- AIR BAGS,SERVICE BRAKES
+
+## Complaint Volume
+- Total complaints in this category: 136
+- 2013: 66 complaints
+- 2015: 25 complaints
+- 2017: 11 complaints
+- 2022: 34 complaints
+
+## Representative Complaint Descriptions
+
+### Complaint 1
+First Incident- volume kept rising on its own. Would turn it down, it would go right back up. Would turn the radio off, it would turn on by itself and would keep rising until full blast. Vehicle was parked, came back from work, turned vehicle on and the volume was fine on it.  Second Incident- (this has happened twice) about a month after the volume incident. This time the vehicle would accelerate by itself. No cruise control was on, vehicle would keep going faster and faster. First time this...
+
+### Complaint 2
+My name is [XXX]  and I have been a Nissan Consumer for over 10 years, and this is the second time I have had major issues with my breaks. Unfortunately, I did not send an email when the 1st occurrence happened but, in my brand, new Rouge around 2017, my front and back breaks went completely out and had to be replaced at 6 months, but I continued to patronize your company. This occurrence I am sending an email regarding my 2022 Nissan Pathfinder I purchased from Passport Nissan, Marlowe Heigh...
+
+### Complaint 3
+WHILE I WAS TOLD THAT THIS HAD HAPPENED PREVIOUSLY IN THE VEHICLE (AROUND JUNE 22, 2015), I EXPERIENCED IT ON 7/6/15. I WAS TRAVELING ON THE HIGHWAY AT @ 68 MPH. I SLOWED TO TAKE AN OFFRAMP LEFT ONTO A CONNECTOR AND PRESSED THE ACCELERATOR TO REGAIN SPEED. THERE WAS NO RESPONSE; THE ACCELERATOR HAD NO POWER--EVEN WHEN PRESSED TO THE FLOOR. THE CAR BEGAN TO LOSE SPEED. IT WAS A BUSY TIME OF DAY, AND THERE WAS A CAR BEHIND ME. I TOOK MY FOOT OFF THE ACCELERATOR AND PRESSED IT AGAIN; THIS TIME I...
+
+### Complaint 4
+AFTER PURCHASING THE VEHICLE NEW IN NOVEMBER 2013, I NOTICED A PROBLEM WITH THE ANTI-LOCK BRAKING SYSTEM.  AFTER ALMOST GETTING INTO AN ACCIDENT WITH MY WIFE AND 2 CHILDREN IN THE VEHICLE, I WENT TO THE DEALER SERVICE DEPT ON JAN 29 2013 AND EXPLAINED THAT "AT TIMES ABOUT ONCE TO TWICE A MONTH, WHEN I APPLY THE BRAKES, THE VEHICLE WILL NOT STOP PROPERLY AND ONLY SLOWED DOWN.  THE SERVICE DEPT. KEPT THE VEHICLE, ONLY TO RETURN IT AND SAID THEY CANNOT DUPLICATE THE PROBLEM.  THE CONDITION PERSI...
+
+### Complaint 5
+I PURCHASED MY PATHFINDER IN NOVEMBER 2012. AT ABOUT 1000 MILES INTO OWNERSHIP (LESS THAN A MONTH, MY VEHICLE STARTED SHUDDERING AND ACTING LIKE IT WAS GOING TO STALL. WHEN I TOOK IT IN FOR THE FIRST SERVICE THEY TOLD ME THEY CHECKED FOR IT AND COULDN'T FIND ANYTHING. THEN THEY ASKED ME TO BRING IT BACK IN FOR A COMPUTER UPDATE. IT STILL SHUDDERED. AT THE NEXT SERVICE REPEAT THE SAME SCENARIO AND THEY COULDN'T FIND ANYTHING AGAIN. THE SHUDDER IS PROGRESSIVELY GETTING WORSE AT THIS POINT. WHEN...
+
+### Complaint 6
+I WAS DRIVING MY CAR INTO A GRAVEL DRIVEWAY, I BRAKED ON THE PAVEMENT TO MAKE MY TURN, TURNING INTO THE GRAVEL DRIVEWAY, WHEN I PRESSED ON THE BRAKE PEDAL TO SLOW THE CAR, I HAD ABSOLUTELY NO BRAKES.  THE CAR WOULD NOT STOP.  I HAD TO QUICKLY TURN THE CAR TO AVOID HITTING ANOTHER VEHICLE AND A BUILDING, AND HAD TO SLAM THE TRANSMISSION INTO PARK TO GET THE VEHICLE TO STOP.  I CONTACTED THE DEALERSHIP, ADVISED THEM OF THE ISSUE, AS THEY WERE OVER AN HOUR AWAY, THEY SENT SOMEONE WITH A TRAILER ...
+
+### Complaint 7
+I HAD COMPLAINED TO TROPHY NISSAN, PROGRESSIVE INSURANCE, WELLS FARGO, AND PLATINUM COLLISION ABOUT THE VERY PROBLEM THAT I JUST RECEIVED A RECALL ABOUT.  MY COMPLAINTS WERE TREATED AS NOT HAVING MERIT.  I HAD SPECIFICALLY DESCRIBED THE SEEMINGLY LOSS OF CONTROL ON PAVEMENT THAT WAS SLIGHTLY ROUGH.  I ALSO ASSERTED THAT WHEN I APPLIED BRAKES THE PATHFINDER SEEMED TO LUNGE FORWARD.  IN THIS ACCIDENT I WAS THE INTERSTATE NEAR DOWNTOWN DALLAS MOVING ONE LANE TO MY LEFT AS TRAFFIC SLOWED AND STOP...
+
+### Complaint 8
+BRAKE FAILURE - ANTI-LOCK BRAKES FAILED - PREVENTING CAR FROM STOPPING.    I WAS PULLING INTO A DIRT PARKING LOT - STEPPING ON THE BRAKES - ANTI-LOCK BRAKES KICKED IN, BRAKE PEDAL BECAME HARD AND WOULDN'T PRESS DOWN ANYMORE - TRUCK WOULDN'T NOT SLOW DOWN.  I WAS HEADING TOWARDS TREES - I IMMEDIATELY TOOK MY FOOT COMPLETELY OFF THE BRAKE PEDAL AND STEPPED ON THE BRAKE AS HARD AS I COULD - TRUCK STOPPED JUST SHORT OF THE TREES..  I HAVE RAN INTO SIMILAR SITUATION IN SNOW - DEFINITELY STILL A MA...
+
+## Diagnostic Guidance
+
+### System: Brakes
+### Vehicle: Nissan PATHFINDER (2013, 2015, 2017, 2022)
+
+Based on the pattern of 136 NHTSA complaints for this model and system:
+
+- **Common Issue**: Premature brake wear, noise, or reduced stopping power
+- **Symptoms**: Squeaking/grinding noise, vibration during braking, longer stopping distances, brake warning light
+- **Diagnostic Steps**: Measure pad thickness, inspect rotors for scoring/warping, check brake fluid, test ABS system
+- **Known Remedies**: Brake pad and/or rotor replacement, brake fluid flush, ABS module replacement
+- **Warranty Note**: Brakes are covered under the basic 3-year/36,000-mile warranty as wear items

@@ -6,26 +6,26 @@ This plan breaks down the VSI demo application into incremental, independently t
 
 ## Tasks
 
-- [ ] 1. Project scaffolding and shared modules
-  - [ ] 1.1 Initialize CDK project structure
+- [x] 1. Project scaffolding and shared modules
+  - [x] 1.1 Initialize CDK project structure
     - Create `cdk.json`, `tsconfig.json`, `package.json` with dependencies (aws-cdk-lib, constructs, esbuild, fast-check, @types/node)
     - Create `bin/app.ts` CDK entry point instantiating `VsiStack`
     - Create `lib/stacks/vsi-stack.ts` root stack shell that will compose nested stacks
     - Set up `test/` directory structure for unit, property, and integration tests
     - _Requirements: 16.1, 16.4_
 
-  - [ ] 1.2 Implement shared types and utilities
+  - [x] 1.2 Implement shared types and utilities
     - Create `src/shared/types.ts` with all TypeScript interfaces (IntakeSubmission, IntakeResponse, PipelineStatusMessage, agent output schemas, ModelCandidate, Weights, RouterDecision)
     - Create `src/shared/logger.ts` structured JSON logger with event_type, submission_id, timestamp fields
     - _Requirements: 14.5_
 
-  - [ ] 1.3 Create reusable CDK constructs
+  - [x] 1.3 Create reusable CDK constructs
     - Create `lib/constructs/lambda-function.ts` reusable Lambda construct with X-Ray tracing, structured logging, 7-day log retention
     - Create `lib/constructs/vpc-construct.ts` VPC construct with private subnets, no NAT/IGW
     - _Requirements: 14.1, 14.3, 15.1_
 
-- [ ] 2. DNS and Certificate stack
-  - [ ] 2.1 Implement DnsCertificateStack
+- [x] 2. DNS and Certificate stack
+  - [x] 2.1 Implement DnsCertificateStack
     - Create `lib/stacks/dns-certificate-stack.ts`
     - Import existing Route 53 hosted zone by ID from CDK context
     - Provision ACM certificate for `nissan.awsteach.com` in us-east-1 with DNS validation
@@ -34,8 +34,8 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export certificate ARN as CloudFormation output
     - _Requirements: 1.1, 1.2, 1.4, 1.5_
 
-- [ ] 3. Static hosting stack
-  - [ ] 3.1 Implement StaticHostingStack
+- [x] 3. Static hosting stack
+  - [x] 3.1 Implement StaticHostingStack
     - Create `lib/stacks/static-hosting-stack.ts`
     - Provision S3 bucket with all public access blocked, `autoDeleteObjects: true`, `removalPolicy: DESTROY`
     - Configure CloudFront distribution with OAC (no public bucket policy)
@@ -47,29 +47,29 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export CloudFront distribution URL
     - _Requirements: 1.3, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 15.3, 15.6, 16.5_
 
-- [ ] 4. Portal SPA — intake form and basic structure
-  - [ ] 4.1 Create Portal HTML/CSS/JS scaffolding
+- [x] 4. Portal SPA — intake form and basic structure
+  - [x] 4.1 Create Portal HTML/CSS/JS scaffolding
     - Create `portal/index.html` with intake form (vehicleModel text, modelYear numeric, telematicsId text, symptomDescription textarea, dtcCodes optional dropdown)
     - Create `portal/styles.css` with responsive layout, form styling, progress indicator styles, report styles
     - Create `portal/app.js` with client-side validation (required field checks), form submission logic (POST to HTTP API), loading indicator toggle
     - _Requirements: 3.1, 3.2, 3.4, 3.5, 3.6_
 
-  - [ ] 4.2 Create Portal WebSocket connection management
+  - [x] 4.2 Create Portal WebSocket connection management
     - Create `portal/websocket.js` with WebSocket connect (using submissionId query param), message parsing, reconnection on unexpected disconnect (one attempt), 10-second connection timeout with error display
     - Implement visual progress indicator with 5 labelled stages that updates on status messages
     - Implement transition to results screen when all 5 stages complete
     - _Requirements: 3.7, 4.1, 4.5, 4.6, 4.7, 4.8_
 
-- [ ] 5. DynamoDB data stack
-  - [ ] 5.1 Implement DataStack with parts inventory table and seed data
+- [x] 5. DynamoDB data stack
+  - [x] 5.1 Implement DataStack with parts inventory table and seed data
     - Create `lib/stacks/data-stack.ts`
     - Provision DynamoDB table with partition key `part_number` (String), `removalPolicy: DESTROY`
     - Create custom resource Lambda to seed ≥20 fictional part records with fields: part_number, description, vehicle_systems (list), availability_status (in_stock|backordered|discontinued), estimated_lead_time_days (0-365), unit_cost_usd (0.01-9999.99)
     - Export table name and ARN
     - _Requirements: 8.1, 8.2, 16.5_
 
-- [ ] 6. AppConfig stack
-  - [ ] 6.1 Implement AppConfigStack
+- [x] 6. AppConfig stack
+  - [x] 6.1 Implement AppConfigStack
     - Create `lib/stacks/appconfig-stack.ts`
     - Provision AppConfig application `vsi-model-routing`, environment `production`, freeform JSON configuration profile
     - Set default content: `{"cost_priority": 0.33, "latency_priority": 0.33, "quality_priority": 0.34}`
@@ -77,8 +77,8 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export application ID, environment ID, configuration profile ID
     - _Requirements: 11.1, 11.7_
 
-- [ ] 7. Model Router shared module
-  - [ ] 7.1 Implement Model Router scoring logic
+- [x] 7. Model Router shared module
+  - [x] 7.1 Implement Model Router scoring logic
     - Create `src/shared/model-router.ts`
     - Define static model scores table (Nova Lite: cost 0.9, latency 0.9, quality 0.4; Nova Pro: cost 0.6, latency 0.6, quality 0.7; Claude Sonnet 3.5: cost 0.3, latency 0.4, quality 0.95)
     - Implement scoring formula: `score = (cost_priority × costScore) + (latency_priority × latencyScore) + (quality_priority × qualityScore)`
@@ -87,7 +87,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Emit structured log on model selection (model ID, weights, scores, timestamp)
     - _Requirements: 11.3, 11.4, 11.5, 11.6, 11.8_
 
-  - [ ]* 7.2 Write property test: Model Router selects highest-scoring candidate
+  - [x] 7.2 Write property test: Model Router selects highest-scoring candidate
     - **Property 1: Model Router selects the highest-scoring candidate**
     - Create `test/property/model-router.property.ts`
     - Generate random valid weight triples summing to 1.0
@@ -95,18 +95,18 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert tie-breaking selects highest costScore
     - **Validates: Requirements 11.3, 11.4**
 
-  - [ ]* 7.3 Write property test: Weight validation accepts valid and rejects invalid
+  - [x] 7.3 Write property test: Weight validation accepts valid and rejects invalid
     - **Property 2: Weight validation accepts valid triples and rejects invalid ones**
     - Generate random triples (both valid and invalid)
     - Assert valid triples (each in [0,1], sum ≈ 1.0) are accepted
     - Assert invalid triples are rejected
     - **Validates: Requirements 11.6, 11.8**
 
-- [ ] 8. Checkpoint — Ensure shared modules and foundational stacks compile
+- [x] 8. Checkpoint — Ensure shared modules and foundational stacks compile
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. HTTP API stack and Intake Handler Lambda
-  - [ ] 9.1 Implement Intake Handler Lambda
+- [x] 9. HTTP API stack and Intake Handler Lambda
+  - [x] 9.1 Implement Intake Handler Lambda
     - Create `src/lambdas/intake-handler/index.ts`
     - Validate payload (vehicleModel, modelYear, symptomDescription required)
     - Generate UUID submission ID
@@ -117,7 +117,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Include AppConfig Lambda extension layer for model router access
     - _Requirements: 3.3, 5.2, 9.3_
 
-  - [ ] 9.2 Implement ApiStack CDK
+  - [x] 9.2 Implement ApiStack CDK
     - Create `lib/stacks/api-stack.ts`
     - Provision HTTP API (API Gateway v2) with CORS for `https://nissan.awsteach.com`
     - Create POST `/submissions` route → Intake Handler Lambda
@@ -128,20 +128,20 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export HTTP API endpoint URL
     - _Requirements: 14.1, 15.1, 15.2, 16.2_
 
-  - [ ] 9.3 Implement AppConfig Weights Updater Lambda
+  - [x] 9.3 Implement AppConfig Weights Updater Lambda
     - Create `src/lambdas/appconfig-weights-updater/index.ts`
     - PUT handler: validate weights sum to 1.0 ±0.001, each in [0.0, 1.0]; create new AppConfig hosted config version; start deployment; return 200 with timestamp
     - GET handler: read current config via AppConfig extension; return current weights + lastUpdated
     - Return 400 for invalid weights, 500 for AppConfig failures
     - _Requirements: 11.6, 11.8, 12.5, 12.7_
 
-- [ ] 10. WebSocket stack
-  - [ ] 10.1 Implement WebSocket connect/disconnect Lambdas
+- [x] 10. WebSocket stack
+  - [x] 10.1 Implement WebSocket connect/disconnect Lambdas
     - Create `src/lambdas/websocket-connect/index.ts` — extract submissionId from query params, store `{ connectionId, submissionId, connectedAt, ttl }` in connections DDB table
     - Create `src/lambdas/websocket-disconnect/index.ts` — delete connection record from DDB
     - _Requirements: 4.2_
 
-  - [ ] 10.2 Implement WebSocketStack CDK
+  - [x] 10.2 Implement WebSocketStack CDK
     - Create `lib/stacks/websocket-stack.ts`
     - Provision WebSocket API with `$connect`, `$disconnect`, `$default` routes
     - Provision DynamoDB connections table (PK: connectionId, GSI: submissionId-index, TTL on `ttl` attribute)
@@ -149,7 +149,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export WebSocket API endpoint URL, connections table name/ARN
     - _Requirements: 4.1, 4.2, 16.2_
 
-  - [ ] 10.3 Implement WebSocket Publisher Lambda
+  - [x] 10.3 Implement WebSocket Publisher Lambda
     - Create `src/lambdas/websocket-publisher/index.ts`
     - Query connections table GSI by submissionId
     - For each connectionId, call `postToConnection` with status message
@@ -157,22 +157,22 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Structure messages per PipelineStatusMessage interface
     - _Requirements: 4.3, 4.4_
 
-  - [ ]* 10.4 Write property test: WebSocket fan-out delivers to all connections
+  - [x] 10.4 Write property test: WebSocket fan-out delivers to all connections
     - **Property 5: WebSocket fan-out delivers to all connections for a submission**
     - Create `test/property/websocket-fanout.property.ts`
     - Generate random connection sets (1-20), random stale positions
     - Assert delivery attempts + stale deletions equals total connections
     - **Validates: Requirements 4.3**
 
-  - [ ]* 10.5 Write property test: Pipeline status messages contain all required fields
+  - [x] 10.5 Write property test: Pipeline status messages contain all required fields
     - **Property 8: Pipeline status messages contain all required fields**
     - Create `test/property/status-message.property.ts`
     - Generate random stage events with varying completeness
     - Assert all required fields present based on status type
     - **Validates: Requirements 4.4**
 
-- [ ] 11. Knowledge Base stack
-  - [ ] 11.1 Implement KnowledgeBaseStack CDK
+- [x] 11. Knowledge Base stack
+  - [x] 11.1 Implement KnowledgeBaseStack CDK
     - Create `lib/stacks/knowledge-base-stack.ts`
     - Provision S3 bucket for TSB documents (removalPolicy: DESTROY)
     - Provision OpenSearch Serverless collection (vector store)
@@ -181,8 +181,8 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Export KB ID, KB ARN, TSB bucket name
     - _Requirements: 7.1, 7.2_
 
-- [ ] 12. Synthetic TSB document set
-  - [ ] 12.1 Create 15 synthetic TSB documents
+- [x] 12. Synthetic TSB document set
+  - [x] 12.1 Create 15 synthetic TSB documents
     - Create `docs/synthetic-tsbs/TSB-DEMO-001.md` through `TSB-DEMO-015.md`
     - Each document: fictional TSB number, vehicle system classification, symptom, root cause, corrective action, 2-10 fictional part numbers
     - Cover all required systems: EV battery (≥3 docs), powertrain (≥3), ADAS (≥3), infotainment (≥3), other (≥2)
@@ -191,14 +191,14 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Include metadata fields: document_id, vehicle_system, severity_keywords, tsb_number
     - _Requirements: 7.3, 7.5, 17.1, 17.2, 17.3, 17.4, 17.5, 17.6_
 
-- [ ] 13. MCP Tool Lambdas
-  - [ ] 13.1 Implement KB Retrieval Lambda
+- [x] 13. MCP Tool Lambdas
+  - [x] 13.1 Implement KB Retrieval Lambda
     - Create `src/lambdas/kb-retrieval/index.ts`
     - Call `bedrock-agent-runtime:Retrieve` with query string
     - Return top-k excerpts (k configurable via env var, default 3)
     - _Requirements: 5.3, 6.2, 7.4_
 
-  - [ ] 13.2 Implement Parts Lookup Lambda
+  - [x] 13.2 Implement Parts Lookup Lambda
     - Create `src/lambdas/parts-lookup/index.ts`
     - Accept list of up to 50 part numbers
     - BatchGetItem on DynamoDB parts table
@@ -206,7 +206,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Return `{ part_number, availability_status: "not_found" }` for missing parts
     - _Requirements: 5.5, 8.3, 8.4_
 
-  - [ ]* 13.3 Write property test: Parts lookup returns correct status
+  - [x] 13.3 Write property test: Parts lookup returns correct status
     - **Property 4: Parts lookup returns correct status for all requested part numbers**
     - Create `test/property/parts-lookup.property.ts`
     - Generate random part number lists (mix existing + non-existing)
@@ -214,7 +214,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert existing parts get real status, missing parts get "not_found"
     - **Validates: Requirements 8.3, 8.4**
 
-  - [ ] 13.4 Implement Warranty Rules Lambda
+  - [x] 13.4 Implement Warranty Rules Lambda
     - Create `src/lambdas/warranty-rules/index.ts`
     - Compute synthetic mileage: `numericHash(telematicsId) % 100_000`
     - Apply warranty rules: new-vehicle limited (≤3 years + <36000 mi), powertrain (≤5 years + <60000 mi), else not_covered
@@ -222,7 +222,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Handle missing/invalid inputs → not_covered with descriptive message
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
 
-  - [ ]* 13.5 Write property test: Warranty determination is deterministic and correct
+  - [x] 13.5 Write property test: Warranty determination is deterministic and correct
     - **Property 3: Warranty determination is deterministic and correct**
     - Create `test/property/warranty-rules.property.ts`
     - Generate random model years (1990-2030), random telematics IDs
@@ -231,18 +231,18 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert invalid inputs → not_covered
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.4**
 
-  - [ ] 13.6 Implement PrivateLink Service Lambda
+  - [x] 13.6 Implement PrivateLink Service Lambda
     - Create `src/lambdas/privatelink-service/index.ts`
     - HTTP GET to ECS mock service via VPC endpoint at `/dealer-parts`
     - 10-second timeout, no retry
     - Return response body on success, error response on non-2xx or timeout
     - _Requirements: 10.3, 10.4_
 
-- [ ] 14. Checkpoint — Ensure all tool Lambdas compile and property tests pass
+- [x] 14. Checkpoint — Ensure all tool Lambdas compile and property tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 15. VPC and ECS PrivateLink stack
-  - [ ] 15.1 Implement PrivateLinkStack CDK
+- [x] 15. VPC and ECS PrivateLink stack
+  - [x] 15.1 Implement PrivateLinkStack CDK
     - Create `lib/stacks/privatelink-stack.ts`
     - Provision VPC (10.0.0.0/16) with private subnets only (no public, no NAT, no IGW)
     - VPC Gateway Endpoints for S3 and DynamoDB, Interface Endpoints for CloudWatch and X-Ray
@@ -253,13 +253,13 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Deny outbound to 0.0.0.0/0 except VPC CIDR + AWS endpoints
     - _Requirements: 10.1, 10.2, 10.5_
 
-  - [ ] 15.2 Implement ECS mock dealer service
+  - [x] 15.2 Implement ECS mock dealer service
     - Create `src/ecs/Dockerfile` (Node.js base image)
     - Create `src/ecs/server.ts` — HTTP server on port 80, GET `/dealer-parts` returns deterministic JSON mock dealer inventory response
     - _Requirements: 10.1_
 
-- [ ] 16. AgentCore stack
-  - [ ] 16.1 Implement AgentCoreStack CDK
+- [x] 16. AgentCore stack
+  - [x] 16.1 Implement AgentCoreStack CDK
     - Create `lib/stacks/agentcore-stack.ts`
     - Provision AgentCore Runtime (HTTP protocol, 900s idle timeout)
     - Define 5 agent prompt templates (Intake_Triage, Diagnostic_Research, Parts_Logistics, Warranty_Determination, Summary_Orchestrator)
@@ -269,8 +269,8 @@ This plan breaks down the VSI demo application into incremental, independently t
     - AgentCore Runtime role with only required Bedrock/AgentCore actions
     - _Requirements: 5.1, 5.10, 6.1, 6.2, 6.3, 6.4, 6.5, 15.4_
 
-- [ ] 17. Pipeline Orchestrator Lambda
-  - [ ] 17.1 Implement Pipeline Orchestrator
+- [x] 17. Pipeline Orchestrator Lambda
+  - [x] 17.1 Implement Pipeline Orchestrator
     - Create `src/lambdas/pipeline-orchestrator/index.ts`
     - Sequential loop over 5 agent stages
     - For each stage: call Model Router → invoke AgentCore Runtime → publish in_progress status → await completion → publish completed status with output summary
@@ -279,7 +279,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Emit structured logs for stage_started, stage_completed, model_routing_decision
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 14.2, 14.5_
 
-  - [ ]* 17.2 Write property test: Pipeline failure halts subsequent execution
+  - [x] 17.2 Write property test: Pipeline failure halts subsequent execution
     - **Property 6: Pipeline failure at any stage halts subsequent execution**
     - Create `test/property/pipeline-sequencing.property.ts`
     - Generate random failure positions (1-5)
@@ -287,29 +287,29 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert error event contains stage name and failure reason
     - **Validates: Requirements 5.8, 5.9**
 
-- [ ] 18. Portal WebSocket integration and live status view
-  - [ ] 18.1 Implement live pipeline progress UI
+- [x] 18. Portal WebSocket integration and live status view
+  - [x] 18.1 Implement live pipeline progress UI
     - Update `portal/app.js` to wire WebSocket status messages to the 5-stage progress indicator
     - Highlight completed stages, show agent output summaries
     - Display error state with stage name and reason on error messages
     - Handle reconnection notification display
     - _Requirements: 4.5, 4.6, 4.7, 4.8_
 
-- [ ] 19. Portal final report display and observability dashboard
-  - [ ] 19.1 Implement final report rendering
+- [x] 19. Portal final report display and observability dashboard
+  - [x] 19.1 Implement final report rendering
     - Add results screen to `portal/index.html` and `portal/app.js`
     - Display: vehicle info, triage classification/severity, top 3 TSB excerpts, parts availability table, warranty status/details, technician narrative
     - Display placeholder messages for missing agent data sections
     - Add "Start New Submission" button that resets form and clears results
     - _Requirements: 13.1, 13.3, 13.4_
 
-  - [ ] 19.2 Implement observability dashboard in Portal
+  - [x] 19.2 Implement observability dashboard in Portal
     - Display: total pipeline duration, per-agent latency, model IDs per agent, active weights, token counts, estimated cost per step
     - Data sourced from WebSocket metadata fields
     - _Requirements: 13.2_
 
-- [ ] 20. Instructor Controls panel
-  - [ ] 20.1 Implement Instructor Controls UI
+- [x] 20. Instructor Controls panel
+  - [x] 20.1 Implement Instructor Controls UI
     - Create `portal/instructor.html` at `/instructor` path (not linked from main nav)
     - Create `portal/instructor.js`
     - Three range sliders (0 to 1, step 0.01): Cost Priority, Latency Priority, Quality Priority
@@ -319,7 +319,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Load current weights via GET on page load
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.6, 12.8_
 
-  - [ ]* 20.2 Write property test: Slider normalization preserves sum invariant
+  - [x] 20.2 Write property test: Slider normalization preserves sum invariant
     - **Property 7: Slider normalization preserves sum invariant**
     - Create `test/property/slider-normalization.property.ts`
     - Generate random slider values [0.0, 1.0], random slider index (0-2)
@@ -327,26 +327,26 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert moved slider retains its value
     - **Validates: Requirements 12.3**
 
-- [ ] 21. Checkpoint — Ensure full pipeline flow works end-to-end
+- [x] 21. Checkpoint — Ensure full pipeline flow works end-to-end
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 22. Observability stack
-  - [ ] 22.1 Implement ObservabilityStack CDK
+- [x] 22. Observability stack
+  - [x] 22.1 Implement ObservabilityStack CDK
     - Create `lib/stacks/observability-stack.ts`
     - Configure X-Ray tracing on all Lambda functions
     - Create CloudWatch Log Groups with 7-day retention for all Lambdas and API Gateway access logs
     - Create CloudWatch custom metric namespace `VSI/ModelRouter` (ModelSelected count) and `VSI/Pipeline` (AgentLatency, PipelineCompleted, PipelineError)
     - _Requirements: 14.1, 14.2, 14.3, 14.4_
 
-- [ ] 23. Architecture diagram
-  - [ ] 23.1 Create Mermaid architecture diagram
+- [x] 23. Architecture diagram
+  - [x] 23.1 Create Mermaid architecture diagram
     - Create `docs/architecture.md` with valid Mermaid syntax
     - Include all required nodes: Portal, CloudFront, S3_Assets, HTTP_API, WebSocket_API, all Lambdas, AgentCore_Runtime, AgentCore_Gateway, Knowledge_Base, DynamoDB_Parts, PrivateLink_ECS, Model_Router, AppConfig_Extension, AppConfig, XRay, CloudWatch
     - Label all directed edges with protocol/service (HTTPS, OAC/S3, invoke, SDK, MCP, PrivateLink/HTTP, HTTP localhost)
     - _Requirements: 18.1, 18.2, 18.3_
 
-- [ ] 24. README and deployment scripts
-  - [ ] 24.1 Create README with deployment and teardown instructions
+- [x] 24. README and deployment scripts
+  - [x] 24.1 Create README with deployment and teardown instructions
     - Create `README.md` with project overview
     - Numbered step-by-step redeploy instructions (prerequisites: Node.js, AWS CLI, CDK bootstrap)
     - Reset procedure (DynamoDB truncation, S3 re-upload, AppConfig default weights)
@@ -354,8 +354,8 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Document CDK context values required (hosted zone ID)
     - _Requirements: 16.3_
 
-- [ ] 25. CDK assertion tests and cdk-nag validation
-  - [ ]* 25.1 Write CDK assertion tests for all stacks
+- [x] 25. CDK assertion tests and cdk-nag validation
+  - [x] 25.1 Write CDK assertion tests for all stacks
     - Create `test/unit/` test files for each stack
     - Assert expected resources are created
     - Assert no wildcard IAM actions or resources
@@ -364,15 +364,15 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Assert log groups have 7-day retention
     - _Requirements: 15.1, 15.2, 15.3, 15.5_
 
-  - [ ]* 25.2 Add cdk-nag AwsSolutions validation
+  - [x] 25.2 Add cdk-nag AwsSolutions validation
     - Install cdk-nag package
     - Add Aspects.of(app).add(new AwsSolutionsChecks()) to app entry
     - Verify zero ERROR-level violations for IAM, S3, CloudFront, Lambda resources
     - Add suppressions only where architecturally justified (demo no-auth)
     - _Requirements: 15.5_
 
-- [ ] 26. Integration testing
-  - [ ]* 26.1 Write integration test suite
+- [x] 26. Integration testing
+  - [x] 26.1 Write integration test suite
     - Create `test/integration/` directory
     - Test end-to-end submission flow (POST → WebSocket → 5 status messages)
     - Test AgentCore Gateway MCP tool invocations
@@ -381,7 +381,7 @@ This plan breaks down the VSI demo application into incremental, independently t
     - Test AppConfig weight update propagation (≤45s)
     - _Requirements: 5.1, 6.3, 7.4, 10.3, 11.7_
 
-- [ ] 27. Final checkpoint — Ensure all tests pass and full deployment succeeds
+- [x] 27. Final checkpoint — Ensure all tests pass and full deployment succeeds
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

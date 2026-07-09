@@ -1,0 +1,15 @@
+{
+  "name": "vsi-mock-dealer-service",
+  "version": "1.0.0",
+  "description": "Mock dealer parts HTTP service for VSI PrivateLink demo",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}

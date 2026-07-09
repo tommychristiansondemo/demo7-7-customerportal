@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSI - Instructor Controls</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Instructor-specific styles */
+    .instructor-container {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .slider-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .slider-header label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .slider-value {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      min-width: 3.5em;
+      text-align: right;
+    }
+
+    .slider-input {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--color-border);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .slider-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.1s ease;
+    }
+
+    .slider-input::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .slider-input::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .weights-sum {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem;
+      background: var(--color-bg);
+      border-radius: var(--radius);
+    }
+
+    .weights-sum .sum-value {
+      font-weight: 700;
+      color: var(--color-success);
+    }
+
+    .save-actions {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .notification {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .notification.success {
+      background: #e8f5e9;
+      border: 1px solid var(--color-success);
+      color: var(--color-success);
+    }
+
+    .notification.error {
+      background: #ffebee;
+      border: 1px solid var(--color-error);
+      color: var(--color-error);
+    }
+
+    .notification.hidden {
+      display: none;
+    }
+
+    /* Model scoring visualization */
+    .scoring-section {
+      margin-top: 2rem;
+    }
+
+    .scoring-section h3 {
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .model-card {
+      display: flex;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: var(--radius);
+      border: 2px solid var(--color-border);
+      background: var(--color-surface);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .model-card.winner {
+      border-color: var(--color-success);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
+
+    .model-card-rank {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-right: 0.85rem;
+      background: var(--color-bg);
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+
+    .model-card.winner .model-card-rank {
+      background: var(--color-success);
+      color: #fff;
+    }
+
+    .model-card-info {
+      flex: 1;
+    }
+
+    .model-card-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .model-card-details {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+    }
+
+    .model-card-score {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      min-width: 4em;
+      text-align: right;
+    }
+
+    .model-card.winner .model-card-score {
+      color: var(--color-success);
+    }
+
+    .score-breakdown {
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.25rem;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    }
+
+    .winner-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--color-success);
+      background: #e8f5e9;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--color-primary-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Instructor Controls</h1>
+    <p class="subtitle">Model Routing Weight Configuration</p>
+  </header>
+
+  <main class="instructor-container">
+    <a href="index.html" class="back-link">&larr; Back to Portal</a>
+
+    <section class="section">
+      <h2>Priority Weights</h2>
+      <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+        Adjust the sliders to change how the Model Router scores candidates.
+        Weights always sum to 100 — moving one slider auto-adjusts the others.
+      </p>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="cost-slider">Cost Priority</label>
+          <span class="slider-value" id="cost-value">15</span>
+        </div>
+        <input
+          type="range"
+          id="cost-slider"
+          class="slider-input"
+          min="0"
+          max="100"
+          step="1"
+          value="15"
+        >
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="latency-slider">Latency Priority</label>
+          <span class="slider-value" id="latency-value">15</span>
+        </div>
+        <input
+          type="range"
+          id="latency-slider"
+          class="slider-input"
+          min="0"
+          max="100"
+          step="1"
+          value="15"
+        >
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <label for="quality-slider">Quality Priority</label>
+          <span class="slider-value" id="quality-value">70</span>
+        </div>
+        <input
+          type="range"
+          id="quality-slider"
+          class="slider-input"
+          min="0"
+          max="100"
+          step="1"
+          value="70"
+        >
+      </div>
+
+      <div class="weights-sum">
+        Sum: <span class="sum-value" id="weights-sum">100</span>
+      </div>
+
+      <div class="save-actions">
+        <button id="save-btn" class="btn btn-primary">Save Weights</button>
+      </div>
+
+      <div id="notification" class="notification hidden"></div>
+    </section>
+
+    <!-- Model Scoring Visualization -->
+    <section class="section scoring-section">
+      <h3>Model Router Scoring</h3>
+      <p style="font-size: 0.8rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+        Score = (quality_weight × quality_score + latency_weight × latency_score + cost_weight × cost_score) / 100
+      </p>
+      <div id="model-scores"></div>
+    </section>
+  </main>
+
+  <script src="instructor.js"></script>
+</body>
+</html>

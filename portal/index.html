@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Service Intelligence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Vehicle Service Intelligence</h1>
+    <p class="subtitle">AI-Powered Diagnostic Pipeline</p>
+  </header>
+
+  <main class="container">
+    <!-- Intake Form Section -->
+    <section id="intake-section" class="section">
+      <h2>Vehicle Intake Form</h2>
+      <form id="intake-form" novalidate>
+        <div class="form-group">
+          <label for="vehicleModel">Model <span class="required">*</span></label>
+          <select id="vehicleModel" name="vehicleModel" required>
+            <option value="">— Select Model —</option>
+          </select>
+          <span class="error-message" id="vehicleModel-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="modelYear">Year <span class="required">*</span></label>
+          <select id="modelYear" name="modelYear" required disabled>
+            <option value="">— Select Year —</option>
+          </select>
+          <span class="error-message" id="modelYear-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="vehicleTrim">Trim <span class="required">*</span></label>
+          <select id="vehicleTrim" name="vehicleTrim" required disabled>
+            <option value="">— Select Trim —</option>
+          </select>
+          <span class="error-message" id="vehicleTrim-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="symptomDescription">Symptom Description <span class="required">*</span></label>
+          <textarea
+            id="symptomDescription"
+            name="symptomDescription"
+            placeholder="Describe the vehicle symptoms..."
+            required
+            maxlength="2000"
+            rows="4"
+          ></textarea>
+          <span class="error-message" id="symptomDescription-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="dtcCodes">DTC Codes (optional)</label>
+          <select id="dtcCodes" name="dtcCodes" multiple>
+            <option value="P0A80">P0A80 - Replace Energy Storage Assembly</option>
+            <option value="P0A7F">P0A7F - Hybrid Battery Pack Deterioration</option>
+            <option value="P0300">P0300 - Random/Multiple Cylinder Misfire</option>
+            <option value="P0171">P0171 - System Too Lean (Bank 1)</option>
+            <option value="P0420">P0420 - Catalyst System Efficiency Below Threshold</option>
+            <option value="U0100">U0100 - Lost Communication with ECM/PCM</option>
+            <option value="C1201">C1201 - Engine Control System Malfunction</option>
+            <option value="B1000">B1000 - ADAS Camera Calibration Required</option>
+          </select>
+          <span class="hint">Hold Ctrl/Cmd to select multiple codes</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="submit-btn" class="btn btn-primary">
+            Submit for Diagnosis
+          </button>
+        </div>
+      </form>
+
+      <!-- Loading Indicator -->
+      <div id="loading-indicator" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Submitting intake form...</p>
+      </div>
+
+      <!-- Error Display -->
+      <div id="submission-error" class="error-banner hidden"></div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress-section" class="section hidden">
+      <h2>Pipeline Progress</h2>
+      <div class="progress-indicator">
+        <div class="stage pending" data-stage="Triage">
+          <div class="stage-icon">1</div>
+          <div class="stage-info">
+            <div class="stage-label">Triage</div>
+            <div class="stage-status"></div>
+            <div class="stage-elapsed hidden"></div>
+            <div class="stage-meta hidden"></div>
+          </div>
+        </div>
+        <div class="stage-connector"></div>
+        <div class="stage pending" data-stage="Diagnostic Research">
+          <div class="stage-icon">2</div>
+          <div class="stage-info">
+            <div class="stage-label">Diagnostic Research</div>
+            <div class="stage-status"></div>
+            <div class="stage-elapsed hidden"></div>
+            <div class="stage-meta hidden"></div>
+          </div>
+        </div>
+        <div class="stage-connector"></div>
+        <div class="stage pending" data-stage="Parts &amp; Logistics">
+          <div class="stage-icon">3</div>
+          <div class="stage-info">
+            <div class="stage-label">Parts &amp; Logistics</div>
+            <div class="stage-status"></div>
+            <div class="stage-elapsed hidden"></div>
+            <div class="stage-meta hidden"></div>
+          </div>
+        </div>
+        <div class="stage-connector"></div>
+        <div class="stage pending" data-stage="Warranty Determination">
+          <div class="stage-icon">4</div>
+          <div class="stage-info">
+            <div class="stage-label">Warranty Determination</div>
+            <div class="stage-status"></div>
+            <div class="stage-elapsed hidden"></div>
+            <div class="stage-meta hidden"></div>
+          </div>
+        </div>
+        <div class="stage-connector"></div>
+        <div class="stage pending" data-stage="Summary">
+          <div class="stage-icon">5</div>
+          <div class="stage-info">
+            <div class="stage-label">Summary</div>
+            <div class="stage-status"></div>
+            <div class="stage-elapsed hidden"></div>
+            <div class="stage-meta hidden"></div>
+          </div>
+        </div>
+      </div>
+      <div id="stage-output" class="stage-output"><p class="placeholder"><em>Waiting for pipeline output...</em></p></div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results-section" class="section hidden">
+      <!-- Results Tabs -->
+      <div class="results-tabs">
+        <button class="results-tab active" data-tab="report-tab">Diagnostic Report</button>
+        <button class="results-tab" data-tab="observability-tab">Observability</button>
+      </div>
+
+      <!-- Report Tab Content -->
+      <div id="report-tab" class="results-tab-content active">
+        <div id="report-content" class="report"></div>
+      </div>
+
+      <!-- Observability Tab Content -->
+      <div id="observability-tab" class="results-tab-content hidden">
+        <div id="observability-content" class="observability-dashboard"></div>
+      </div>
+
+      <button id="new-submission-btn" class="btn btn-secondary">
+        Start New Submission
+      </button>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="vehicle-data.js"></script>
+  <script src="app.js"></script>
+  <script src="progress.js"></script>
+  <script src="websocket.js"></script>
+  <script src="report.js"></script>
+  <script src="observability.js"></script>
+  <script src="demo-mode.js"></script>
+</body>
+</html>

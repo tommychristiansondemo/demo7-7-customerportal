@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# CDK output
+cdk.out/
+
+# TypeScript build output
+*.d.ts
+*.js.map
+
+# Keep source files
+!jest.config.ts
+!bin/app.ts
+!lib/**/*.ts
+!src/**/*.ts
+!test/**/*.ts
+
+# Portal JS files are source (not compiled)
+!portal/**/*.js
+
+# Build artifacts
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local

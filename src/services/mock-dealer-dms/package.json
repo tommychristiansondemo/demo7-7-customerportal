@@ -1,0 +1,16 @@
+{
+  "name": "vsi-mock-dealer-dms",
+  "version": "1.0.0",
+  "description": "Mock Dealer Management Service (DMS) for VSI PrivateLink demo — simulates dealer appointments, inventory, and pricing",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "npx ts-node server.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "~5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}
