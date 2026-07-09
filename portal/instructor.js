@@ -74,8 +74,8 @@
 
   /**
    * Normalizes slider values so they always sum to 100.
-   * The moved slider retains its value; the remaining two each get
-   * Math.floor((100 - movedValue) / 2) via integer division.
+   * The moved slider retains its value; the other two adjust proportionally
+   * to their current ratio. If both others are zero, they split evenly.
    *
    * @param {string} movedSlider - Which slider was moved ('cost', 'latency', or 'quality')
    * @param {number} movedValue - The new value of the moved slider (integer 0-100)
@@ -83,22 +83,26 @@
    */
   function normalizeWeights(movedSlider, movedValue) {
     var remaining = 100 - movedValue;
-    var otherValue = Math.floor(remaining / 2);
+    var currentCost = parseInt(costSlider.value, 10) || 0;
+    var currentLatency = parseInt(latencySlider.value, 10) || 0;
+    var currentQuality = parseInt(qualitySlider.value, 10) || 0;
 
-    var result = { cost: 0, latency: 0, quality: 0 };
+    var result = { cost: currentCost, latency: currentLatency, quality: currentQuality };
+    result[movedSlider] = movedValue;
 
-    if (movedSlider === 'cost') {
-      result.cost = movedValue;
-      result.latency = otherValue;
-      result.quality = otherValue;
-    } else if (movedSlider === 'latency') {
-      result.cost = otherValue;
-      result.latency = movedValue;
-      result.quality = otherValue;
+    // Get the sum of the other two sliders' current values
+    var otherKeys = ['cost', 'latency', 'quality'].filter(function (k) { return k !== movedSlider; });
+    var otherSum = result[otherKeys[0]] + result[otherKeys[1]];
+
+    if (otherSum === 0) {
+      // Both others are zero — split evenly
+      result[otherKeys[0]] = Math.floor(remaining / 2);
+      result[otherKeys[1]] = remaining - Math.floor(remaining / 2);
     } else {
-      result.cost = otherValue;
-      result.latency = otherValue;
-      result.quality = movedValue;
+      // Distribute proportionally based on current ratio
+      var ratio0 = result[otherKeys[0]] / otherSum;
+      result[otherKeys[0]] = Math.round(remaining * ratio0);
+      result[otherKeys[1]] = remaining - result[otherKeys[0]];
     }
 
     return result;
